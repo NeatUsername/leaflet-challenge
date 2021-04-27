@@ -15,7 +15,7 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 }).addTo(myMap);
 
 // Store API query variables
-var baseURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson";
+var baseURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
 // Assemble API query URL
 var url = baseURL;
@@ -28,17 +28,23 @@ d3.json(url).then(function(response) {
   // var markers = L.markerClusterGroup();
 
   // Loop through data
+
+  /* Testing small subset of data only */
+  // for (var i = 0; i < 11; i++) {
+    
   for (var i = 0; i < response.features.length; i++) {
 
     // Set the data location & magnitude properties to a variable
     var location_lat = response.features[i].geometry.coordinates[0];
     var location_long = response.features[i].geometry.coordinates[1];
     var eq_coord = [location_lat, location_long];
-    var magnitude = response.features[i].geometry.coordinates[2];
+    var depth = response.features[i].geometry.coordinates[2];
+    var magnitude = response.features[i].properties.mag
 
     console.log(location_lat)
     console.log(location_long)
     console.log(eq_coord)
+    console.log(depth)
     console.log(magnitude)
 
     // // Check for location property
