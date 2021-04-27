@@ -1,7 +1,7 @@
 // Creating map object
 var myMap = L.map("map", {
-  center: [41.9, -11.22],
-  zoom: 3
+  center: [41.46, -117.50078],
+  zoom: 6
 });
 
 // Adding tile layer to the map
@@ -31,12 +31,12 @@ d3.json(url).then(function(response) {
 
   /* Testing small subset of data only */
   // for (var i = 0; i < 11; i++) {
-    
+
   for (var i = 0; i < response.features.length; i++) {
 
     // Set the data location & magnitude properties to a variable
-    var location_lat = response.features[i].geometry.coordinates[0];
-    var location_long = response.features[i].geometry.coordinates[1];
+    var location_lat = response.features[i].geometry.coordinates[1];
+    var location_long = response.features[i].geometry.coordinates[0];
     var eq_coord = [location_lat, location_long];
     var depth = response.features[i].geometry.coordinates[2];
     var magnitude = response.features[i].properties.mag
@@ -46,6 +46,18 @@ d3.json(url).then(function(response) {
     console.log(eq_coord)
     console.log(depth)
     console.log(magnitude)
+
+    
+    // Circle graphics layer
+    L.circle(eq_coord, {
+      Opacity: 0.5,
+      fillOpacity: 0.75,
+      radius: magnitude * 10000,
+      color: "blue",
+      fillColor: "orange",
+  }).bindPopup("<h3>" + "Test: Location Name Placeholder" +
+  "</h3><hr><p>" + "Test:  Event Date Placeholder" + "</p>").addTo(myMap);
+
 
     // // Check for location property
     // if (location) {
