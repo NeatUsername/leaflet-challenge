@@ -23,28 +23,37 @@ var url = baseURL;
 // Grab the data with d3
 d3.json(url).then(function(response) {
   // console.log(response)
+
   // Create a new marker cluster group
-  var markers = L.markerClusterGroup();
+  // var markers = L.markerClusterGroup();
 
   // Loop through data
-  for (var i = 0; i < response.length; i++) {
+  for (var i = 0; i < response.features.length; i++) {
 
-    // Set the data location property to a variable
-    var location = response[i].features.geometry.coordinates;
-    console.log(location)
+    // Set the data location & magnitude properties to a variable
+    var location_lat = response.features[i].geometry.coordinates[0];
+    var location_long = response.features[i].geometry.coordinates[1];
+    var eq_coord = [location_lat, location_long];
+    var magnitude = response.features[i].geometry.coordinates[2];
 
-  //   // Check for location property
-  //   if (location) {
+    console.log(location_lat)
+    console.log(location_long)
+    console.log(eq_coord)
+    console.log(magnitude)
 
-  //     // Add a new marker to the cluster group and bind a pop-up
-  //     markers.addLayer(L.marker([location.coordinates[1], location.coordinates[0]])
-  //       .bindPopup(response[i].features.properties.mag));
-  //   }
+    // // Check for location property
+    // if (location) {
+    //   console.log(location)
+    //   //     // Add a new marker to the cluster group and bind a pop-up
+    //   //     markers.addLayer(L.marker([location.coordinates[1], location.coordinates[0]])
+    //   //       .bindPopup(response[i].features.properties.mag));
+    //   //   }
 
-  // }
+    //   // }
 
-  // // Add our marker cluster layer to the map
-  // myMap.addLayer(markers);
+    //   // // Add our marker cluster layer to the map
+    //   // myMap.addLayer(markers);
 
-    }
+    // }
+  }
 });
